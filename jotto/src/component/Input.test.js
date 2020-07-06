@@ -1,7 +1,7 @@
 import { shallow } from "enzyme";
 import React from "react";
 import { findByTestAttr, storeFactory } from "../../test/testUtils";
-import Input from "./Input";
+import Input, { UnconnectInput } from "./Input";
 
 const setup = (initialState) => {
   const store = storeFactory(initialState);
@@ -74,6 +74,23 @@ describe("render", () => {
       expect(submitButton.length).toBe(0);
     });
   });
-});
 
-describe("update state", () => {});
+  describe("`guessWord` action creator call", () => {
+    test("calls `guessWord` when button is clicked", () => {
+      const guessWordMock = jest.fn();
+
+      const props = {
+        guessWord: guessWordMock,
+      };
+
+      const wrapper = shallow(<UnconnectInput {...props} />);
+
+      const submitButton = findByTestAttr(wrapper, "submit-button");
+      submitButton.simulate("click");
+
+      const guessWordCallCount = guessWordMock.mock.calls.length;
+
+      expect(guessWordCallCount).toBe(1);
+    });
+  });
+});
