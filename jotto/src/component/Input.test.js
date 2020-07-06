@@ -37,6 +37,20 @@ describe("render", () => {
     });
   });
 
+  describe("redux props", () => {
+    test("has success piece of state as prop", () => {
+      const success = true;
+      const wrapper = setup({ success });
+      const successProps = wrapper.instance().props.success;
+      expect(successProps).toBe(success);
+    });
+    test("`guessWord` action creator is a function prop", () => {
+      const wrapper = setup();
+      const guessWordProps = wrapper.instance().props.guessWord;
+      expect(guessWordProps).toBeInstanceOf(Function);
+    });
+  });
+
   describe("word has been guessed", () => {
     let wrapper;
 
