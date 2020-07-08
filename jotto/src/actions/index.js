@@ -20,7 +20,7 @@ export const getSecretWord = () => {
 
 export const guessWord = (guessedWord) => {
   return (dispatch, getState) => {
-    const secretWord = getState().secretWord;
+    const secretWord = getState().secretWord || "train";
     const letterMatchCount = getLetterMatchCount(guessedWord, secretWord);
 
     dispatch({
@@ -28,7 +28,7 @@ export const guessWord = (guessedWord) => {
       payload: { guessedWord, letterMatchCount },
     });
 
-    if (guessWord === secretWord) {
+    if (guessedWord === secretWord) {
       dispatch({ type: actionTypes.CORRECT_GUESS });
     }
   };

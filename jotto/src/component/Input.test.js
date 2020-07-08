@@ -105,5 +105,9 @@ describe("render", () => {
 
       expect(guessWordArg).toBe(guessedWord);
     });
+
+    test("input box clears on submit", () => {
+      expect(wrapper.state("currentGuess")).toBe("");
+    });
   });
 });

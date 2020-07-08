@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { getSecretWord } from "./actions";
 import "./App.css";
+import Input from "./component/Input";
 import Congrats from "./Congrats";
 import GuessedWords from "./GuessedWords";
 
@@ -15,22 +16,18 @@ export class UnconnectApp extends React.Component {
       <header className="row">
         <div className="col">
           <h1>Jotto</h1>
-          <Congrats success={false} />
-          <GuessedWords
-            guessedWords={[
-              { guessedWord: "train", letterMatchCount: 3 },
-              { guessedWord: "agile", letterMatchCount: 1 },
-              { guessedWord: "party", letterMatchCount: 5 },
-            ]}
-          />
+          <div>The secret word is: {this.props.secretWord}</div>
+          <Congrats success={this.props.success} />
+          <Input />
+          <GuessedWords guessedWords={this.props.guessedWords} />
         </div>
       </header>
     </div>
   );
 }
 
-const mapStateToProps = (state) => {
-  return ({ success, guessedWord, secretWor } = state);
+const mapStateToProps = ({ success, guessedWords, secretWord }) => {
+  return { success, guessedWords, secretWord };
 };
 
 export default connect(mapStateToProps, { getSecretWord })(UnconnectApp);
